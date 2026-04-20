@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            background-color: #2c3e50;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        #display {
+            width: 100%;
+            height: 60px;
+            font-size: 24px;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .operator {
+            background-color: #e67e22;
+        }
+
+        .operator:hover {
+            background-color: #d35400;
+        }
+
+        .clear {
+            background-color: #e74c3c;
+            grid-column: span 2;
+        }
+
+        .clear:hover {
+            background-color: #c0392b;
+        }
+
+        .info-btn {
+            background-color: #2ecc71;
+        }
+
+        .info-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .equals {
+            background-color: #9b59b6;
+        }
+
+        .equals:hover {
+            background-color: #8e44ad;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="press('7')">7</button>
+            <button onclick="press('8')">8</button>
+            <button onclick="press('9')">9</button>
+            <button class="operator" onclick="operator('+')">+</button>
+
+            <button onclick="press('4')">4</button>
+            <button onclick="press('5')">5</button>
+            <button onclick="press('6')">6</button>
+            <button class="operator" onclick="operator('-')">-</button>
+
+            <button onclick="press('1')">1</button>
+            <button onclick="press('2')">2</button>
+            <button onclick="press('3')">3</button>
+            <button class="operator" onclick="operator('*')">×</button>
+
+            <button class="info-btn" onclick="showDev()">A</button>
+            <button class="info-btn" onclick="showApp()">B</button>
+            <button onclick="press('0')">0</button>
+            <button class="operator" onclick="operator('/')">÷</button>
+
+            <button class="equals" onclick="calculate()">=</button>
+            <button class="clear" onclick="clearAll()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        let display;
+        window.onload = function() {
+            display = document.getElementById("display");
+        };
+
+        let first = "";
+        let second = "";
+        let op = "";
+
+        function press(num) {
+            display.value += num;
+        }
+
+        function operator(o) {
+            first = display.value;
+            op = o;
+            display.value = "";
+        }
+
+        function calculate() {
+            second = display.value;
+            let a = parseFloat(first);
+            let b = parseFloat(second);
+            let result = 0;
+
+            if (op === "+") result = a + b;
+            if (op === "-") result = a - b;
+            if (op === "*") result = a * b;
+            if (op === "/") result = b !== 0 ? a / b : "Error";
+
+            display.value = result;
+        }
+
+        function clearAll() {
+            display.value = "";
+            first = "";
+            second = "";
+            op = "";
+        }
+
+        function showDev() {
+            alert("Developer: Jamil Ortaleza");
+        }
+
+        function showApp() {
+            alert("Standard Calculator Web Application");
+        }
+    </script>
+</body>
+</html>
